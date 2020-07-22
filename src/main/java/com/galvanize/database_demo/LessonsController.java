@@ -11,7 +11,7 @@ public class LessonsController
     public LessonsController(LessonRepository repository) {
         this.repository = repository;
     }
-    @GetMapping("/all")
+    @GetMapping("/list")
             public Iterable<Lesson> getAll()
     {
         return this.repository.findAll();
@@ -21,5 +21,15 @@ public class LessonsController
     public Lesson create(@RequestBody Lesson lesson)
     {
         return this.repository.save(lesson);
+    }
+    @GetMapping("by-id")
+    public Lesson byId(@RequestParam("id") long id)
+    {
+        return this.repository.findById(id);
+    }
+    @DeleteMapping("delete-id")
+    public void DbyId(@RequestParam("id") long id)
+    {
+         this.repository.deleteById(id);
     }
 }
