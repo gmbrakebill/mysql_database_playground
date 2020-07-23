@@ -2,6 +2,8 @@ package com.galvanize.database_demo;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/lessons")
 public class LessonsController
@@ -39,5 +41,15 @@ public class LessonsController
        oldLesson.setTitle(lesson.getTitle());
        oldLesson.setDeliveredOn(lesson.getDeliveredOn());
        return this.repository.save(oldLesson);
+    }
+    @GetMapping("/lessons/find")
+    public Lesson getLessonByTitle(@RequestParam(name = "title") String title)
+    {
+        return this.repository.findByTitle(title);
+    }
+    @GetMapping("lessons/between")
+    public Iterable<Lesson> between(@RequestParam(name = "date") Date[] dates)
+    {
+        return this.repository.deliveredBetween(dates[0], dates[1]);
     }
 }
